@@ -13,8 +13,8 @@
 
     // Function to tick the checkbox
     function tickCheckbox() {
-        // Replace '#your-checkbox-id' with the actual ID of the checkbox
-        const checkbox = document.querySelector('#your-checkbox-id');
+        // Replace '.your-checkbox-class' with the actual class of the checkbox
+        const checkbox = document.querySelector('.your-checkbox-class');
         if (checkbox && !checkbox.checked) {
             checkbox.checked = true;
         }
@@ -25,9 +25,22 @@
         window.scrollTo(0, document.body.scrollHeight);
     }
 
-    // Execute the functions when the page loads
+    // Function to wait for the overlay to disappear
+    function waitForOverlayAndExecute() {
+        // Replace '.your-overlay-class' with the actual class of the overlay
+        const overlay = document.querySelector('.your-overlay-class');
+        if (!overlay) {
+            // Overlay not found, execute the actions
+            tickCheckbox();
+            scrollToBottom();
+        } else {
+            // Overlay found, wait and try again
+            setTimeout(waitForOverlayAndExecute, 100);
+        }
+    }
+
+    // Execute the function when the page loads
     window.addEventListener('load', function() {
-        tickCheckbox();
-        scrollToBottom();
+        waitForOverlayAndExecute();
     });
 })();
